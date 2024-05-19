@@ -1,0 +1,105 @@
+﻿@page "/"
+@rendermode InteractiveServer
+<PageTitle>Home</PageTitle>
+
+@code{
+    string monthName = "";
+    int mouthNum;
+    int yearNum;
+    DateTime monthStart;
+    DateTime monthEnd;
+    DateTime selectDate;
+    int NumberStratWeek;
+    int NumberEndWeek;
+    string[] Weeks = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" };
+    DateTime[] Holidays = new DateTime[] { DateTime.Now, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2) };
+
+    protected override void OnInitialized()
+    {
+        mouthNum = DateTime.Now.Month;
+        yearNum = DateTime.Now.Year;
+        selectDate = DateTime.Now;
+        CreateMouth();
+    }
+
+    private void CreateMouth(){
+        monthStart = new DateTime(yearNum, mouthNum, 1);
+        monthEnd = monthStart.AddMonths(1).AddDays(-1);
+        monthName = monthStart.Month switch
+        {
+            1 => "Январь",
+            2 => "Февраль",
+            3 => "Март",
+            4 => "Апрель",
+            5 => "Май",
+            6 => "Июнь",
+            7 => "Июль",
+            8 => "Август",
+            9 => "Сентябрь",
+            10 => "Октябрь",
+            11 => "Ноябрь",
+            12 => "Декабрь",
+            _ => ""
+        };
+
+        NumberStratWeek = (int)monthStart.DayOfWeek;
+        if (NumberStratWeek == 0) NumberStratWeek = 7;
+        NumberEndWeek = (int)monthEnd.DayOfWeek;
+    }
+
+    private void AddMounth(){
+        mouthNum++;
+        if (mouthNum > 12)
+        {
+            yearNum++;
+            mouthNum = 1;
+        }
+        CreateMouth();
+    }
+
+    private void MinusMounth()
+    {
+        mouthNum--;
+        if (mouthNum < 1)
+        {
+            yearNum--;
+            mouthNum = 12;
+        }
+        CreateMouth();
+    }
+}
+
+<button @onclick="MinusMounth">Назад</button> <h1>@monthName, @yearNum</h1> <button @onclick="AddMounth">Вперед</button> 
+
+<section>
+    @for(int i = 0; i < 7; i++)
+    {
+        <div>@Weeks[i]</div>
+    }
+    @for (int i = 1; i < NumberStratWeek; i++)
+    {
+        <div></div>
+    }
+    @for (int i = monthStart.Day; i <= monthEnd.Day; i++)
+    {
+        var day = i;
+        if (Holidays.Any(date => date.Date == new DateTime(yearNum, mouthNum, day).Date))
+        {
+            <div><button class="Holy" @onclick="() => {selectDate = new DateTime(yearNum, mouthNum, day);}">@i</button></div>
+        }
+        else
+        {
+            <div><button @onclick="() => {selectDate = new DateTime(yearNum, mouthNum, day);}">@i</button></div>
+        }
+        
+    }
+    @if (NumberEndWeek != 0)
+    {
+        for (int i = NumberEndWeek; i < 7; i++)
+        {
+            <div></div>
+        }
+    }
+</section>
+
+<h1>Выбранная дата: @selectDate.ToString("dd/MM/yyyy")</h1>

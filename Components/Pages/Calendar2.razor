@@ -1,0 +1,14 @@
+﻿@page "/Home"
+@rendermode InteractiveServer
+<h3>Calendar2</h3>
+<InputDate TValue="DateTime" @bind-Value="selectDate"></InputDate>
+
+<h1>Выбранная дата: @selectDate.ToString("dd/MM/yyyy")</h1>
+@code {
+    DateTime selectDate;
+
+    protected override void OnInitialized()
+    {
+        selectDate = DateTime.Now;
+    }
+}

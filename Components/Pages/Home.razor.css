@@ -1,0 +1,35 @@
+﻿section {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+section > div {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+    section > div > button {
+        width: 100%; /* Занимает всю ширину родительского элемента */
+        height: 100%; /* Занимает всю высоту родительского элемента */
+        display: flex; /* Использует flexbox для центрирования содержимого */
+        justify-content: center; /* Центрирует содержимое по горизонтали */
+        align-items: center; /* Центрирует содержимое по вертикали */
+        text-align: center; /* Центрирует текст внутри кнопки */
+        border: none; /* Убирает границу кнопки */
+        background-color: transparent; /* Убирает фон кнопки */
+        font-size: 16px; /* Устанавливает размер шрифта */
+        cursor: pointer; /* Изменяет курсор на указатель при наведении */
+    }
+
+.Holy {
+    width: 100%; /* Занимает всю ширину родительского элемента */
+    height: 100%; /* Занимает всю высоту родительского элемента */
+    display: flex; /* Использует flexbox для центрирования содержимого */
+    justify-content: center; /* Центрирует содержимое по горизонтали */
+    align-items: center; /* Центрирует содержимое по вертикали */
+    text-align: center; /* Центрирует текст внутри кнопки */
+    border: none; /* Убирает границу кнопки */
+    background-color: green; /* Убирает фон кнопки */
+    font-size: 16px; /* Устанавливает размер шрифта */
+    cursor: pointer; /* Изменяет курсор на указатель при наведении */
+}
