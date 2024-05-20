@@ -1,14 +1,15 @@
-﻿@page "/Home"
+﻿@page "/"
 @rendermode InteractiveServer
+@using Calendari.Components.Pages
 <h3>Calendar2</h3>
-<InputDate TValue="DateTime" @bind-Value="selectDate"></InputDate>
 
-<h1>Выбранная дата: @selectDate.ToString("dd/MM/yyyy")</h1>
+<Calendar SelectDate="@SelectDate" OnSelectDateChanged="HandleSelectDateChange" />
+<h1>Выбранная дата: @SelectDate.ToString("dd/MM/yyyy")</h1>
 @code {
-    DateTime selectDate;
+    DateTime SelectDate;
 
-    protected override void OnInitialized()
+    private void HandleSelectDateChange(DateTime newDate)
     {
-        selectDate = DateTime.Now;
+        SelectDate = newDate;
     }
 }
